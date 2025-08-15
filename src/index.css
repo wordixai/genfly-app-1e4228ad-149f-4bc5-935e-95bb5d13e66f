@@ -1,18 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers:wght@400&family=Comic+Neue:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
+/* Pop Art Design System - 复古波普艺术设计系统 */
 @layer base {
   :root {
-   
-  }
-
-  .dark {
-
+    /* Pop Art Color Palette */
+    --pop-orange: 25 100% 55%;
+    --pop-pink: 330 100% 70%;
+    --pop-yellow: 45 100% 65%;
+    --pop-blue: 200 100% 65%;
+    --pop-purple: 280 100% 70%;
+    --pop-green: 120 100% 60%;
+    --pop-red: 5 100% 65%;
+    
+    /* Background Colors */
+    --background: 25 100% 55%;
+    --foreground: 0 0% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+    
+    /* Interactive Colors */
+    --primary: 330 100% 70%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 100% 65%;
+    --secondary-foreground: 0 0% 15%;
+    
+    /* Border and Accents */
+    --border: 0 0% 15%;
+    --input: 0 0% 100%;
+    --ring: 330 100% 70%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 200 100% 65%;
+    --accent-foreground: 0 0% 15%;
+    
+    /* Utility */
+    --destructive: 5 100% 65%;
+    --destructive-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
+    --radius: 12px;
   }
 }
 
@@ -22,6 +51,163 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-pop-orange text-foreground font-comic;
+    background-image: 
+      radial-gradient(circle at 20% 80%, hsl(var(--pop-pink)) 8px, transparent 8px),
+      radial-gradient(circle at 80% 20%, hsl(var(--pop-yellow)) 6px, transparent 6px),
+      radial-gradient(circle at 40% 40%, hsl(var(--pop-blue)) 4px, transparent 4px);
+    background-size: 80px 80px, 120px 120px, 60px 60px;
+    background-position: 0 0, 40px 40px, 20px 20px;
+  }
+}
+
+@layer components {
+  /* Pop Art Button Styles */
+  .btn-pop {
+    @apply relative font-bold text-lg px-6 py-3 border-4 border-black rounded-none shadow-[4px_4px_0px_0px_#000] transform transition-all duration-200 hover:translate-x-1 hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_#000] active:translate-x-2 active:translate-y-2 active:shadow-none;
+  }
+  
+  .btn-pop-primary {
+    @apply btn-pop bg-pop-pink text-white;
+  }
+  
+  .btn-pop-secondary {
+    @apply btn-pop bg-pop-yellow text-black;
+  }
+  
+  .btn-pop-accent {
+    @apply btn-pop bg-pop-blue text-white;
+  }
+
+  /* Product Card Pop Style */
+  .card-pop {
+    @apply relative bg-white border-4 border-black rounded-none shadow-[6px_6px_0px_0px_#000] transform transition-all duration-300 hover:translate-x-2 hover:translate-y-2 hover:shadow-[3px_3px_0px_0px_#000];
+  }
+
+  /* Comic Book Frame */
+  .comic-frame {
+    @apply relative bg-white border-4 border-black rounded-none;
+    background-image: 
+      linear-gradient(45deg, transparent 45%, #000 45%, #000 55%, transparent 55%),
+      linear-gradient(-45deg, transparent 45%, #000 45%, #000 55%, transparent 55%);
+    background-size: 8px 8px;
+    background-position: 0 0, 4px 4px;
+  }
+
+  /* Halftone Pattern */
+  .halftone {
+    background-image: radial-gradient(circle, #000 1px, transparent 1px);
+    background-size: 8px 8px;
+  }
+
+  /* Speech Bubble */
+  .speech-bubble {
+    @apply relative bg-white border-4 border-black rounded-full px-6 py-4 font-bold;
+  }
+  
+  .speech-bubble::after {
+    content: '';
+    @apply absolute w-0 h-0 border-l-[20px] border-r-[20px] border-t-[20px] border-l-transparent border-r-transparent border-t-white;
+    bottom: -20px;
+    left: 30px;
+  }
+  
+  .speech-bubble::before {
+    content: '';
+    @apply absolute w-0 h-0 border-l-[24px] border-r-[24px] border-t-[24px] border-l-transparent border-r-transparent border-t-black;
+    bottom: -24px;
+    left: 28px;
+  }
+
+  /* Bounce Animation */
+  .bounce-pop {
+    animation: bounce-pop 2s infinite;
+  }
+
+  @keyframes bounce-pop {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    40% {
+      transform: translateY(-10px) rotate(-2deg);
+    }
+    60% {
+      transform: translateY(-5px) rotate(1deg);
+    }
+  }
+
+  /* Wiggle Animation */
+  .wiggle {
+    animation: wiggle 0.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes wiggle {
+    0% { transform: rotate(-3deg) scale(1); }
+    100% { transform: rotate(3deg) scale(1.05); }
+  }
+
+  /* Pop Text Effects */
+  .text-pop {
+    @apply font-bangers text-black;
+    text-shadow: 3px 3px 0px #fff, 6px 6px 0px #000;
+  }
+
+  .text-pop-small {
+    @apply font-bangers text-black;
+    text-shadow: 2px 2px 0px #fff, 4px 4px 0px #000;
+  }
+}
+
+@layer utilities {
+  .font-bangers {
+    font-family: 'Bangers', cursive;
+  }
+  
+  .font-comic {
+    font-family: 'Comic Neue', cursive;
+  }
+  
+  .bg-pop-orange {
+    background-color: hsl(var(--pop-orange));
+  }
+  
+  .bg-pop-pink {
+    background-color: hsl(var(--pop-pink));
+  }
+  
+  .bg-pop-yellow {
+    background-color: hsl(var(--pop-yellow));
+  }
+  
+  .bg-pop-blue {
+    background-color: hsl(var(--pop-blue));
+  }
+  
+  .bg-pop-purple {
+    background-color: hsl(var(--pop-purple));
+  }
+  
+  .bg-pop-green {
+    background-color: hsl(var(--pop-green));
+  }
+  
+  .bg-pop-red {
+    background-color: hsl(var(--pop-red));
+  }
+  
+  .text-pop-orange {
+    color: hsl(var(--pop-orange));
+  }
+  
+  .text-pop-pink {
+    color: hsl(var(--pop-pink));
+  }
+  
+  .text-pop-yellow {
+    color: hsl(var(--pop-yellow));
+  }
+  
+  .text-pop-blue {
+    color: hsl(var(--pop-blue));
   }
 }
